@@ -1,5 +1,5 @@
 -- T?o CSDL:
-Create table user_data1.NhanVien_162_340(
+Create table user_data1.NhanVien_162_213_340(
   maNV varchar2(5), 
   hoTen varchar2(50),
   diaChi varchar2(100),
@@ -12,7 +12,7 @@ Create table user_data1.NhanVien_162_340(
   Primary Key (maNV)
 );
 
-Create table user_data1.ChiNhanh_162_340(
+Create table user_data1.ChiNhanh_162_213_340(
   maCN varchar2(5), 
   tenCN varchar2(50),
   truongChiNhanh varchar2(5),
@@ -20,7 +20,7 @@ Create table user_data1.ChiNhanh_162_340(
   Primary Key (maCN)
 );
 
-Create table user_data1.PhongBan_162_340 (
+Create table user_data1.PhongBan_162_213_340 (
   maPhong varchar2(5),
   tenPhong varchar2(50),
   truongPhong varchar2(5),
@@ -31,7 +31,7 @@ Create table user_data1.PhongBan_162_340 (
   Primary Key (maPhong)
 );
 
-Create table user_data1.DuAn_162_340(
+Create table user_data1.DuAn_162_213_340(
   maDA varchar2(5),
   tenDA varchar2(50),
   kinhphi number,
@@ -41,7 +41,7 @@ Create table user_data1.DuAn_162_340(
   Primary Key (maDA)
 );
 
-Create table user_data1.ChiTieu_162_340(
+Create table user_data1.ChiTieu_162_213_340(
   maChiTieu varchar2(5),
   tenChiTieu varchar2(50),
   soTien number,
@@ -50,7 +50,7 @@ Create table user_data1.ChiTieu_162_340(
   Primary Key (maChiTieu)
 );
 
-Create table user_data1.PhanCong_162_340(
+Create table user_data1.PhanCong_162_213_340(
   maNV varchar2(5),
   duAn varchar2(5),
   vaiTro varchar2(50),
@@ -58,3 +58,14 @@ Create table user_data1.PhanCong_162_340(
   
   Primary Key (maNV,duAn)
 );
+
+Alter table user_data1.NHANVIEN_162_213_340 add foreign key (maPhong) references user_data1.PhongBanh_162_213_340(maPhong);
+Alter table user_data1.NHANVIEN_162_213_340 add foreign key (chiNhanh) references user_data1.ChiNhanh_162_213_340(maCN);
+Alter table user_data1.ChiNhanh_162_213_340 add foreign key (truongChiNhanh) references user_data1.NHANVIEN_162_213_340(maNV);
+Alter table user_data1.PhongBanh_162_213_340 add foreign key (truongPhong) references user_data1.NHANVIEN_162_213_340(maNV);
+Alter table user_data1.PhongBanh_162_213_340 add foreign key (chiNhanh) references user_data1.ChiNhanh_162_213_340(maCN);
+Alter table user_data1.DuAn_162_213_340 add foreign key (phongChuTri) references user_data1.PhongBan_162_213_340(maPhong);
+Alter table user_data1.DuAn_162_213_340 add foreign key (truongDA) references user_data1.NHANVIEN_162_213_340(maNV);
+Alter table user_data1.ChiTieu_162_213_340 add foreign key (duAn) references user_data1.DuAn_162_213_340(maDA);
+Alter table user_data1.PhanCong_162_213_340 add foreign key (maNV) references user_data1.NHANVIEN_162_213_340(maNV);
+Alter table user_data1.PhanCong_162_213_340 add foreign key (duAn) references user_data1.DuAn_162_213_340(maDA);
