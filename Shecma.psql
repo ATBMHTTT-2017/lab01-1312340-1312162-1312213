@@ -1,0 +1,60 @@
+-- T?o CSDL:
+Create table user_data1.NhanVien_162_340(
+  maNV varchar2(5), 
+  hoTen varchar2(50),
+  diaChi varchar2(100),
+  dienThoai varchar2(20),
+  email varchar2(30),
+  maPhong varchar2(5),
+  chiNhanh varchar2(5),
+  luong number,
+  
+  Primary Key (maNV)
+);
+
+Create table user_data1.ChiNhanh_162_340(
+  maCN varchar2(5), 
+  tenCN varchar2(50),
+  truongChiNhanh varchar2(5),
+
+  Primary Key (maCN)
+);
+
+Create table user_data1.PhongBan_162_340 (
+  maPhong varchar2(5),
+  tenPhong varchar2(50),
+  truongPhong varchar2(5),
+  ngayNhanChuc date,
+  soNhanVien number,
+  chiNhanh varchar2(5),
+  
+  Primary Key (maPhong)
+);
+
+Create table user_data1.DuAn_162_340(
+  maDA varchar2(5),
+  tenDA varchar2(50),
+  kinhphi number,
+  phongChuTri varchar2(5),
+  truongDA varchar2(5),
+  
+  Primary Key (maDA)
+);
+
+Create table user_data1.ChiTieu_162_340(
+  maChiTieu varchar2(5),
+  tenChiTieu varchar2(50),
+  soTien number,
+  duAn varchar2(5),
+  
+  Primary Key (maChiTieu)
+);
+
+Create table user_data1.PhanCong_162_340(
+  maNV varchar2(5),
+  duAn varchar2(5),
+  vaiTro varchar2(50),
+  phuCap number,
+  
+  Primary Key (maNV,duAn)
+);
