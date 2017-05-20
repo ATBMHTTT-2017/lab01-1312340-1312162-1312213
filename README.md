@@ -5,7 +5,7 @@
 Thành viên:
 * [ ] **1312162** Phạm Văn Hà (HaPham1107)
 * [ ] **1312214** Nguyễn Duy Hoàng(tên tài khoản github)
-* [ ] **1312340** Lê Quốc Tấn Lộc (tên tài khoản github)
+* [ ] **1312340** Lê Quốc Tấn Lộc (1312340)
 
 ## Yêu cầu
 

@@ -1,5 +1,7 @@
+
 --Tất cả nhân viên bình thường (trừ trưởng phòng, trưởng chi nhánh và các trưởng dự án)chỉ được phép xem thông tin nhân viên trong phòng của mình, chỉ được xem lương của bản thân (VPD)
 --tạo package PROC_CHECK_OF_CTX(4 procs)
+
 create or replace package PROC_CHECK_OF_CTX
 as
     procedure SET_PHONGBAN;
@@ -14,7 +16,7 @@ Create Or Replace View V_NHANVIEN AS
     grant select on V_NHANVIEN to NHANVIEN,TRUONGPHONG,TRUONGDUAN,TRUONGCHINHANH,GIAMDOC;
 --tạo context NHANVIEN_CTX
 CREATE OR REPLACE CONTEXT NHANVIEN_CTX USING PROC_CHECK_OF_CTX;
--- nội dung pkg
+-- body package
 create or replace package body PROC_CHECK_OF_CTX
 as
   procedure SET_PHONGBAN
@@ -59,6 +61,7 @@ as
   end;
 end;
 
+
 --tạo trigger để thực thi các proc trong package khi có user đăng nhập.
  create or replace trigger set_NHANVIEN_CTX_TRIGGER after logon on database
 begin
@@ -67,6 +70,7 @@ begin
     TBMG.PROC_CHECK_OF_CTX.CHECK_TRUONGCHINHANH;
     TBMG.PROC_CHECK_OF_CTX.CHECK_TRUONGDUAN;
 end;
+
 
 --chỉ được xem nhân viên chung phòng 
 create or replace function FUNC_ROOMATE(object_schema in varchar2, object_name in varchar2)
@@ -96,14 +100,19 @@ begin dbms_rls.add_policy(
    POLICY_TYPE =>DBMS_RLS.DYNAMIC);
 end;
 
+
 --drop test
+
 /*
 begin dbms_rls.drop_policy(
   object_schema => 'tbmg',
   object_name => 'V_NHANVIEN',
   policy_name => 'POLICY_ROOMATE'); 
 end;
+
     */                                       
+
+
 --nhân viên chỉ xem được lương của chính mình
 create or replace function FUNC_XEMLUONG(object_schema in varchar2, object_name in varchar2)
 return varchar2
@@ -132,7 +141,10 @@ begin dbms_rls.add_policy(
   sec_relevant_cols => 'LUONG',
   sec_relevant_cols_opt => dbms_rls.ALL_ROWS );
 end;
+
 --drop test
+
+
 /*
 begin dbms_rls.drop_policy(
   object_schema => 'tbmg',
