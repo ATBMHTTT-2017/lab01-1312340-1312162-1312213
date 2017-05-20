@@ -1,5 +1,5 @@
---Tất cả nhân viên bình thường (trừ trưởng phòng, trưởng chi nhánh và các trưởng dự án) 
---chỉ được phép xem thông tin nhân viên trong phòng của mình, chỉ được xem lương của bản thân (VPD). (**MSSV**)ậ
+--Tất cả nhân viên bình thường (trừ trưởng phòng, trưởng chi nhánh và các trưởng dự án) chỉ được phép xem thông tin nhân viên trong phòng của mình, chỉ được xem lương của bản thân (VPD).
+
 --tạo package PROC_CHECK_OF_CTX
 create or replace package PROC_CHECK_OF_CTX
 as
@@ -11,7 +11,7 @@ end;
 /
 --tạo context NHANVIEN_CTX
 CREATE OR REPLACE CONTEXT NHANVIEN_CTX USING PROC_CHECK_OF_CTX;
--- nội dung pkg
+-- body package
 create or replace package body PROC_CHECK_OF_CTX
 as
   procedure SET_PHONGBAN
@@ -56,11 +56,6 @@ as
   end;
 end;
 
---tạo logon trigger cho package
- create or replace trigger KTMaPhong_trg after logon on database
-  begin
-  TBMG.PROC_CHECK_OF_CTX.SET_PHONGBAN;
-  end; 
 
 --Xem nhân viên chung phòng với nhân viên đã login
 create or replace function FUNC_ROOMATE(object_schema in varchar2, object_name in varchar2)
@@ -91,12 +86,13 @@ begin dbms_rls.add_policy(
 end;
 
 --drop POLICY_ROOMATE policy
-
+/*
 begin dbms_rls.drop_policy(
   object_schema => 'tbmg',
   object_name => 'NhanVien_162_213_340',
   policy_name => 'POLICY_ROOMATE'); 
 end;
+*/
                                             
 --nhân viên chỉ xem được lương của chính mình
 create or replace function FUNC_XEMLUONG(object_schema in varchar2, object_name in varchar2)
@@ -127,7 +123,7 @@ begin dbms_rls.add_policy(
   sec_relevant_cols_opt => dbms_rls.ALL_ROWS );
 end;
 --drop POLICY_XEM_LUONG_NHANVIEN_ITSELF policy
-
+/*
 begin dbms_rls.drop_policy(
   object_schema => 'tbmg',
     object_name => 'NhanVien_162_213_340',
