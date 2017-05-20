@@ -45,7 +45,7 @@ Liệt kê các **yêu cầu nâng cao** đã thực hiện:
 ## Demo
 
 Link ảnh GIF demo ứng dụng:  
-**1312340_Demo_DAC_2_VPD_1**  
+**1312340_Demo_1_2_4_6**  
 
 
 ![Video Walkthrough](demo_1312340.gif)
