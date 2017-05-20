@@ -44,9 +44,11 @@ Liệt kê các **yêu cầu nâng cao** đã thực hiện:
 
 ## Demo
 
-Link ảnh GIF demo ứng dụng:
+Link ảnh GIF demo ứng dụng:  
+**1312340_Demo_DAC_2_VPD_1**  
 
-![Video Walkthrough](demo.gif)
+
+![Video Walkthrough](demo_1312340.gif)
 
 Tạo ảnh GIF với chương trình [LiceCap](http://www.cockos.com/licecap/).
 
