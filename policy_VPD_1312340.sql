@@ -8,6 +8,10 @@ as
     procedure CHECK_TRUONGDUAN;
 end;
 /
+Create Or Replace View V_NHANVIEN AS 
+  Select maNV,  hoTen , diaChi ,dienThoai , email , maPhong ,chiNhanh , luong 
+    FROM tbmg.NhanVien_162_213_340
+    grant select on V_NHANVIEN to NHANVIEN,TRUONGPHONG,TRUONGDUAN,TRUONGCHINHANH,GIAMDOC;
 --tạo context NHANVIEN_CTX
 CREATE OR REPLACE CONTEXT NHANVIEN_CTX USING PROC_CHECK_OF_CTX;
 -- nội dung pkg
@@ -84,7 +88,7 @@ end;
 
 begin dbms_rls.add_policy(
   object_schema => 'tbmg',
-  object_name => 'NhanVien_162_213_340',
+  object_name => 'V_NHANVIEN',
     policy_name => 'POLICY_ROOMATE',
     function_schema => 'tbmg',
     policy_function => 'FUNC_ROOMATE',
@@ -96,7 +100,7 @@ end;
 /*
 begin dbms_rls.drop_policy(
   object_schema => 'tbmg',
-  object_name => 'NhanVien_162_213_340',
+  object_name => 'V_NHANVIEN',
   policy_name => 'POLICY_ROOMATE'); 
 end;
     */                                       
