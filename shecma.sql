@@ -1,11 +1,17 @@
--- Tao user : 
-CREATE USER TBMG  IDENTIFIED BY 123456 ;
---- Gan quyen admin cho user TBMG
-GRANT CONNECT to TBMG;
--- Gan quyen admin cho TBMG
-GRANT ALL PRIVILEGES to TBMG  IDENTIFIED BY 123456 ;
--- Tao CSDL:
-Create table TBMG.NhanVien_162_213_340(
+-- tbmg se la user co quyen tren table de thuc quyen cap VPD.
+
+CREATE USER tbmg IDENTIFIED BY 123456;
+GRANT CREATE SESSION TO tbmg;
+GRANT dba to tbmg;
+GRANT EXECUTE ON DBMS_RLS TO tbmg;
+GRANT CREATE PROCEDURE TO tbmg;
+GRANT exempt access policy to tbmg;
+GRANT CREATE ANY CONTEXT to tbmg;
+
+connect tbmg/123456;
+
+-- T?o CSDL:
+Create table NhanVien_162_213_340(
   maNV varchar2(5), 
   hoTen varchar2(50),
   diaChi varchar2(100),
@@ -18,7 +24,7 @@ Create table TBMG.NhanVien_162_213_340(
   Primary Key (maNV)
 );
 
-Create table TBMG.ChiNhanh_162_213_340(
+Create table ChiNhanh_162_213_340(
   maCN varchar2(5), 
   tenCN varchar2(50),
   truongChiNhanh varchar2(5),
@@ -26,7 +32,7 @@ Create table TBMG.ChiNhanh_162_213_340(
   Primary Key (maCN)
 );
 
-Create table TBMG.PhongBan_162_213_340 (
+Create table PhongBan_162_213_340 (
   maPhong varchar2(5),
   tenPhong varchar2(50),
   truongPhong varchar2(5),
@@ -37,7 +43,7 @@ Create table TBMG.PhongBan_162_213_340 (
   Primary Key (maPhong)
 );
 
-Create table TBMG.DuAn_162_213_340(
+Create table DuAn_162_213_340(
   maDA varchar2(5),
   tenDA varchar2(50),
   kinhphi number,
@@ -47,7 +53,7 @@ Create table TBMG.DuAn_162_213_340(
   Primary Key (maDA)
 );
 
-Create table TBMG.ChiTieu_162_213_340(
+Create table ChiTieu_162_213_340(
   maChiTieu varchar2(5),
   tenChiTieu varchar2(50),
   soTien number,
@@ -56,7 +62,7 @@ Create table TBMG.ChiTieu_162_213_340(
   Primary Key (maChiTieu)
 );
 
-Create table TBMG.PhanCong_162_213_340(
+Create table PhanCong_162_213_340(
   maNV varchar2(5),
   duAn varchar2(5),
   vaiTro varchar2(50),
@@ -65,14 +71,13 @@ Create table TBMG.PhanCong_162_213_340(
   Primary Key (maNV,duAn)
 );
 
-Alter table TBMG.NHANVIEN_162_213_340 add foreign key (maPhong) references TBMG.PhongBan_162_213_340(maPhong);
-Alter table TBMG.NHANVIEN_162_213_340 add foreign key (chiNhanh) references TBMG.ChiNhanh_162_213_340(maCN);
-Alter table TBMG.ChiNhanh_162_213_340 add foreign key (truongChiNhanh) references TBMG.NHANVIEN_162_213_340(maNV);
-Alter table TBMG.PhongBanh_162_213_340 add foreign key (truongPhong) references TBMG.NHANVIEN_162_213_340(maNV);
-Alter table TBMG.PhongBanh_162_213_340 add foreign key (chiNhanh) references TBMG.ChiNhanh_162_213_340(maCN);
-Alter table TBMG.DuAn_162_213_340 add foreign key (phongChuTri) references TBMG.PhongBan_162_213_340(maPhong);
-Alter table TBMG.DuAn_162_213_340 add foreign key (truongDA) references TBMG.NHANVIEN_162_213_340(maNV);
-Alter table TBMG.ChiTieu_162_213_340 add foreign key (duAn) references TBMG.DuAn_162_213_340(maDA);
-Alter table TBMG.PhanCong_162_213_340 add foreign key (maNV) references TBMG.NHANVIEN_162_213_340(maNV);
-Alter table TBMG.PhanCong_162_213_340 add foreign key (duAn) references TBMG.DuAn_162_213_340(maDA);
-
+Alter table NHANVIEN_162_213_340 add foreign key (maPhong) references PhongBan_162_213_340(maPhong);
+Alter table NHANVIEN_162_213_340 add foreign key (chiNhanh) references ChiNhanh_162_213_340(maCN);
+Alter table ChiNhanh_162_213_340 add foreign key (truongChiNhanh) references NHANVIEN_162_213_340(maNV);
+Alter table PhongBan_162_213_340 add foreign key (truongPhong) references NHANVIEN_162_213_340(maNV);
+Alter table PhongBan_162_213_340 add foreign key (chiNhanh) references ChiNhanh_162_213_340(maCN);
+Alter table DuAn_162_213_340 add foreign key (phongChuTri) references PhongBan_162_213_340(maPhong);
+Alter table DuAn_162_213_340 add foreign key (truongDA) references NHANVIEN_162_213_340(maNV);
+Alter table ChiTieu_162_213_340 add foreign key (duAn) references DuAn_162_213_340(maDA);
+Alter table PhanCong_162_213_340 add foreign key (maNV) references NHANVIEN_162_213_340(maNV);
+Alter table PhanCong_162_213_340 add foreign key (duAn) references DuAn_162_213_340(maDA);
