@@ -61,7 +61,7 @@ as
   end;
 end;
 
-
+/
 --tạo trigger để thực thi các proc trong package khi có user đăng nhập.
  create or replace trigger set_NHANVIEN_CTX_TRIGGER after logon on database
 begin
@@ -71,7 +71,7 @@ begin
     TBMG.PROC_CHECK_OF_CTX.CHECK_TRUONGDUAN;
 end;
 
-
+/
 --chỉ được xem nhân viên chung phòng 
 create or replace function FUNC_ROOMATE(object_schema in varchar2, object_name in varchar2)
 return varchar2
@@ -89,7 +89,7 @@ begin
   end if;
 end;
 
-
+/
 begin dbms_rls.add_policy(
   object_schema => 'tbmg',
   object_name => 'V_NHANVIEN',
@@ -100,7 +100,7 @@ begin dbms_rls.add_policy(
    POLICY_TYPE =>DBMS_RLS.DYNAMIC);
 end;
 
-
+/
 --drop test
 
 /*
@@ -112,7 +112,7 @@ end;
 
     */                                       
 
-
+/
 --nhân viên chỉ xem được lương của chính mình
 create or replace function FUNC_XEMLUONG(object_schema in varchar2, object_name in varchar2)
 return varchar2
@@ -129,7 +129,7 @@ begin
     return TEMP;
   end if;
 end;
-
+/
 --add POLICY_XEM_LUONG_NHANVIEN_ITSELF policy
 begin dbms_rls.add_policy(
   object_schema => 'tbmg',
